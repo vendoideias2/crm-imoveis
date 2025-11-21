@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Owner, Property, PropertyType, Tenant, PropertyStatus } from '../types';
+import type { Owner } from '../types';
+import { PropertyType, PropertyStatus } from '../types';
 import { Icons } from './icons';
 
 interface EntityFormProps {

@@ -1,4 +1,5 @@
-import { Owner, Property, PropertyStatus, PropertyType, Tenant, User } from '../types';
+import type { Owner, Property, Tenant, User } from '../types';
+import { PropertyStatus, PropertyType } from '../types';
 
 export const ADMIN_USER: User = {
     id: 'admin-master',

@@ -1,16 +1,15 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sidebar } from './components/Sidebar';
 import { PropertyKanban } from './components/PropertyKanban';
 import { EntityForm } from './components/EntityForm';
 import { Icons } from './components/icons';
-import {
+import type {
   User,
   Owner,
   Property,
-  Tenant,
-  PropertyStatus,
-  Role
+  Tenant
 } from './types';
+import { PropertyStatus } from './types';
 import {
   ADMIN_USER,
   MOCK_OWNERS,
@@ -24,15 +23,13 @@ import JSZip from 'jszip';
 function App() {
   // State: Auth
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
   const [loginCreds, setLoginCreds] = useState({ username: '', password: '' });
-  const [registerData, setRegisterData] = useState({ name: '', email: '', password: '' });
 
   // State: Data
   const [properties, setProperties] = useState<Property[]>([]);
   const [owners, setOwners] = useState<Owner[]>([]);
   const [tenants, setTenants] = useState<Tenant[]>([]);
-  const [users, setUsers] = useState<User[]>([ADMIN_USER]);
+  const [users] = useState<User[]>([ADMIN_USER]);
 
   // State: UI
   const [currentView, setCurrentView] = useState('dashboard');

@@ -11,18 +11,22 @@ export interface User {
     };
 }
 
-export enum PropertyStatus {
-    AVAILABLE = 'AVAILABLE',
-    RENTED = 'RENTED',
-    RESERVED = 'RESERVED',
-}
+export const PropertyStatus = {
+    AVAILABLE: 'AVAILABLE',
+    RENTED: 'RENTED',
+    RESERVED: 'RESERVED',
+} as const;
 
-export enum PropertyType {
-    APARTMENT = 'Apartamento',
-    HOUSE = 'Casa',
-    COMMERCIAL = 'Comercial',
-    LAND = 'Terreno',
-}
+export type PropertyStatus = typeof PropertyStatus[keyof typeof PropertyStatus];
+
+export const PropertyType = {
+    APARTMENT: 'Apartamento',
+    HOUSE: 'Casa',
+    COMMERCIAL: 'Comercial',
+    LAND: 'Terreno',
+} as const;
+
+export type PropertyType = typeof PropertyType[keyof typeof PropertyType];
 
 export interface Owner {
     id: string;
