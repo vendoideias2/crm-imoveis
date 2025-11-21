@@ -1,3 +1,9 @@
+```json
 {
-    "start": "npx serve dist -s -p $PORT"
+    "phases": {
+        "start": {
+            "cmd": "npx serve dist -s -l $PORT"
+        }
+    }
 }
+```
