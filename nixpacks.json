@@ -1,7 +1,5 @@
 {
-    "phases": {
-        "start": {
-            "cmd": "npx serve dist -s -l $PORT"
-        }
+    "start": {
+        "cmd": "npm run start"
     }
 }

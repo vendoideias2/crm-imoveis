@@ -1,46 +1,35 @@
-# Vendo Ideias Imóveis - Walkthrough
+# Walkthrough - Correções de Deploy e Guia Oracle
 
-O projeto "Vendo Ideias Imóveis" foi reconstruído com sucesso utilizando React 19, TypeScript, Vite e TailwindCSS.
+Realizei uma revisão completa para corrigir o problema da "tela branca" e preparei o ambiente para deploy na Oracle Cloud (ARM64).
 
-## Funcionalidades Implementadas
+## Alterações Realizadas
 
-### 1. Gestão Visual (Kanban)
-- **Drag & Drop**: Mova imóveis entre "Disponível", "Reservado" e "Alugado".
-- **Cards Ricos**: Visualização rápida de preço, endereço e status.
+### 1. Correção de Caminhos (`vite.config.ts`)
+Adicionei `base: './'` na configuração do Vite. Isso garante que o aplicativo carregue seus arquivos (CSS, JS) corretamente, independentemente de onde esteja hospedado (raiz ou subpasta), o que é a causa #1 de telas brancas.
 
-### 2. Autenticação & Segurança
-- **Login Admin**: Usuário `vendoideias` / Senha `vendo1010`.
-- **Social Login**: Simulação de login com Google.
-- **Gestão de Perfil**: Edição de nome, email e foto.
+```typescript
+export default defineConfig({
+  plugins: [react()],
+  base: './', // Adicionado
+})
+```
 
-### 3. Gestão de Entidades
-- **CRUD Completo**: Criação e edição de Imóveis, Proprietários e Inquilinos.
-- **Relacionamentos**: Vínculo automático entre Proprietários e Imóveis.
+### 2. Indicador de Carregamento (`index.html`)
+Adicionei uma mensagem "Carregando sistema..." diretamente no HTML.
+- **Antes**: Tela totalmente branca até o React carregar.
+- **Agora**: Você verá "Carregando sistema...".
+    - Se a mensagem ficar travada: O React falhou (erro de JS).
+    - Se a mensagem nem aparecer: O servidor (Nginx) não está servindo o arquivo corretamente.
+Isso ajuda muito a diagnosticar o problema.
 
-### 4. Exportação de Documentos
-- **Ficha do Imóvel (PDF)**: Gere fichas técnicas com um clique.
-- **Documentos do Inquilino (ZIP)**: Baixe pacote de documentos (Contrato, Vistoria).
+### 3. Guia de Deploy Oracle (`ORACLE_DEPLOY.md`)
+Criei um guia passo a passo específico para sua VPS Oracle (ARM64). Ele cobre:
+- Instalação do Docker no Oracle Linux.
+- Como construir a imagem **diretamente no servidor** (evitando problemas de compatibilidade entre seu PC e o servidor ARM).
+- Comandos exatos para rodar o projeto.
 
-## Como Rodar Localmente
+## Próximos Passos
 
-1. Instale as dependências:
-   ```bash
-   npm install
-   ```
-2. Inicie o servidor de desenvolvimento:
-   ```bash
-   npm run dev
-   ```
-3. Acesse `http://localhost:5173`.
-
-## Deploy e GitHub
-
-- **Deploy**: Consulte [DEPLOY.md](file:///home/fabiano-martinelli/novo crm/DEPLOY.md) para instruções de deploy no Coolify/Oracle Cloud.
-- **GitHub**: Consulte [GITHUB_INSTRUCTIONS.md](file:///home/fabiano-martinelli/novo crm/GITHUB_INSTRUCTIONS.md) para enviar o código para seu repositório.
-
-## Estrutura de Arquivos
-
-- `src/components`: Componentes UI (Sidebar, Kanban, Cards).
-- `src/services`: Dados mockados e lógica de inicialização.
-- `src/types.ts`: Definições de tipos TypeScript.
-- `Dockerfile`: Configuração para deploy em container.
+1.  **Siga o guia [ORACLE_DEPLOY.md](file:///c:/Users/bibih/OneDrive/Documentos/vendoideias/novo%20crm/ORACLE_DEPLOY.md)** para configurar seu servidor.
+2.  Faça o deploy seguindo as instruções de "Build e Execução".
+3.  Acesse seu IP/Domínio e verifique se o sistema carrega.
